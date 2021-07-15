@@ -1,7 +1,7 @@
 @font-face {
   font-family: "bootstrap-icons";
-  src: url("build/bootstrap-icons.ab390c2b.woff2?856008caa5eb66df68595e734e59580d") format("woff2"),
-url("build/bootstrap-icons.07142518.woff?856008caa5eb66df68595e734e59580d") format("woff");
+  src: url("/bootstrap-icons.ab390c2b.woff2?856008caa5eb66df68595e734e59580d") format("woff2"),
+url("/bootstrap-icons.07142518.woff?856008caa5eb66df68595e734e59580d") format("woff");
 }
 
 [class^="bi-"]::before,
@@ -1390,4 +1390,4 @@ url("build/bootstrap-icons.07142518.woff?856008caa5eb66df68595e734e59580d") form
 .bi-safe::before { content: "\f65a"; }
 
 
-/*# sourceMappingURL=build/bootstrap-icons.9cea29bd.css.map */
+/*# sourceMappingURL=/bootstrap-icons.9cea29bd.css.map */
