@@ -1,0 +1,34 @@
+{
+  "name": "property-hk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "desandro-matches-selector": "^2.0.2",
+    "ev-emitter": "^2.1.0",
+    "fizzy-ui-utils": "^3.0.0",
+    "get-size": "^2.0.3",
+    "isotope-layout": "^3.0.6",
+    "jquery": "^3.6.0",
+    "masonry-layout": "^4.2.2",
+    "node-sass": "^6.0.1",
+    "outlayer": "^2.1.1",
+    "parcel-bundler": "^1.12.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html -out-dir build --public-url https://property-hk.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kf-c/property-hk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kf-c/property-hk/issues"
+  },
+  "homepage": "https://github.com/kf-c/property-hk#readme"
+}
