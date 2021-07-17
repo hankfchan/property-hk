@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "@types/popper.js": "^1.11.0",
     "desandro-matches-selector": "^2.0.2",
     "ev-emitter": "^2.1.0",
     "fizzy-ui-utils": "^3.0.0",
@@ -13,13 +15,23 @@
     "masonry-layout": "^4.2.2",
     "node-sass": "^6.0.1",
     "outlayer": "^2.1.1",
-    "parcel-bundler": "^1.12.5"
+    "parcel": "^2.0.0-beta.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-nightly.2393",
+    "parcel-bundler": "^1.12.5",
+    "snowpack": "^3.8.2"
+  },
+  "browserslist": "> 0.2%",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html -d build ./"
+    "start": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html --public-url ./",
+    "dev": "snowpack dev",
+    "build:snowpack": "snowpack build"
+  },
+  "targets": {
+    "types": false
   },
   "repository": {
     "type": "git",
