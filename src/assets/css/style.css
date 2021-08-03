@@ -464,9 +464,8 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 75vh;
-  background: url("https://cdn.hk01.com/di/media/images/dw/20210728/497105872875425792209473.jpeg/LKgSAYJbtcNXkI1Jk3xJvkSA2_HGI4UnlTzOMZU8zjE?v=w1920")
-    top left;
+  height: 70vh;
+  background: url("https://cdn.hk01.com/di/media/images/dw/20210728/497105872875425792209473.jpeg/LKgSAYJbtcNXkI1Jk3xJvkSA2_HGI4UnlTzOMZU8zjE?v=w1920") center;
   background-size: cover;
   position: relative;
 }
