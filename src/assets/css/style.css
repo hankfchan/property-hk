@@ -172,7 +172,7 @@ h6 {
   background: #fff;
   transition: all 0.5s;
   z-index: 997;
-  height: 86px;
+  height: 56px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -181,7 +181,7 @@ h6 {
 }
 
 #header .logo {
-  font-size: 30px;
+  font-size: 22px;
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -465,7 +465,7 @@ h6 {
 #hero {
   width: 100%;
   height: 75vh;
-  background: url("https://static.wixstatic.com/media/3922e7_2b90364d04b142a5bc2f1a1d5b123b54~mv2.png/v1/fill/w_1374,h_635,al_c,q_90/Screenshot%202021-06-22%20at%202_23_59%20PM.webp")
+  background: url("https://cdn.hk01.com/di/media/images/dw/20210728/497105872875425792209473.jpeg/LKgSAYJbtcNXkI1Jk3xJvkSA2_HGI4UnlTzOMZU8zjE?v=w1920")
     top left;
   background-size: cover;
   position: relative;
@@ -473,7 +473,7 @@ h6 {
 
 #hero:before {
   content: "";
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.85);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -567,7 +567,7 @@ section {
 }
 
 .section-title h3 {
-  margin: 15px 0 0 0;
+  margin: 30px 0 0 0;
   font-size: 32px;
   font-weight: 700;
 }
