@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>太古 THE HOLBORN</title>
-    <meta name="description" content="「THE HOLBORN」位處優裕地段，毗鄰港鐵太古站，瞬間連繫港九各區。項目坐擁港島東核心商業區優勢，匯聚港島東甲級商貿，未來發展潛力可看高一線；鄰近太古城中心及蘇豪東等休閒娛樂配套，配合充滿藝文氣息的藝術展覽及表演空間，加上鰂魚涌公園及柏架山道自然徑等海濱綠茵，尊尚生活時刻擁有。">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Roboto&display=swap" rel="stylesheet">
-    <!-- Vendor CSS Files -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/glightbox@3.0.9/dist/css/glightbox.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
-    <!-- Template Main CSS File -->
-    <link href="/index.0f72f59b.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" type="module" src="https://www.googletagmanager.com/gtag/js?id=G-P002D6Z6H6"></script>
-    <script>// modules are defined as an array
+// modules are defined as an array
 // [ module function, map of requires ]
 //
 // map of requires is short require name -> numeric require
@@ -165,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"mT5c2":[function(require,module,exports) {
+})({"gTUK7":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
-module.bundle.HMR_BUNDLE_ID = "d4cc802ba8329005228bb636ea216ef3";
+module.bundle.HMR_BUNDLE_ID = "706bf8ccfe254177935b55581cdc52c0";
 // @flow
 /*global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE*/
 /*::
@@ -466,217 +441,299 @@ id) /*: string*/
   acceptedAssets[id] = true;
 }
 
-},{}],"2xuE5":[function(require,module,exports) {
-window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
+},{}],"688qR":[function(require,module,exports) {
+;(function () {
+  /**
+   * Easy selector helper function
+   */
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
+  }
+
+  /**
+   * Easy event listener function
+   */
+  const on = (type, el, listener, all = false) => {
+    let selectEl = select(el, all)
+    if (selectEl) {
+      if (all) {
+        selectEl.forEach((e) => e.addEventListener(type, listener))
+      } else {
+        selectEl.addEventListener(type, listener)
       }
-      gtag("js", new Date())
+    }
+  }
 
-      gtag("config", "G-P002D6Z6H6")
-},{}]},["mT5c2","2xuE5"], "2xuE5", "parcelRequiref14c")
+  /**
+   * Easy on scroll event listener
+   */
+  const onscroll = (el, listener) => {
+    el.addEventListener("scroll", listener)
+  }
 
-</script>
-		<style>.btn-get-started {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 10px 28px;
-  border-radius: 4px;
-  transition: 0.5s;
-  color: #fff;
-  background: #106eea;
-}
+  /**
+   * Navbar links active state on scroll
+   */
+  // let navbarlinks = select("#navbar .scrollto", true)
+  // const navbarlinksActive = () => {
+  //   let position = window.scrollY + 200
+  //   navbarlinks.forEach((navbarlink) => {
+  //     if (!navbarlink.hash) return
+  //     let section = select(navbarlink.hash)
+  //     if (!section) return
+  //     if (
+  //       position >= section.offsetTop &&
+  //       position <= section.offsetTop + section.offsetHeight
+  //     ) {
+  //       navbarlink.classList.add("active")
+  //     } else {
+  //       navbarlink.classList.remove("active")
+  //     }
+  //   })
+  // }
+  // window.addEventListener("load", navbarlinksActive)
+  // onscroll(document, navbarlinksActive)
 
-.btn-get-started:hover {
-  background: #247cf0;
-}
-			.btn-watch-video {
-  font-size: 16px;
-  transition: 0.5s;
-  margin-left: 25px;
-  color: #222222;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
+  /**
+   * Scrolls to an element with header offset
+   */
+  const scrollto = (el) => {
+    let header = select("#header")
+    let offset = header.offsetHeight
 
-.btn-watch-video i {
-  color: #106eea;
-  font-size: 32px;
-  transition: 0.3s;
-  line-height: 0;
-  margin-right: 8px;
-}
+    if (!header.classList.contains("header-scrolled")) {
+      offset -= 16
+    }
 
-.btn-watch-video:hover {
-  color: #106eea;
-}
+    let elementPos = select(el).offsetTop
+    window.scrollTo({
+      top: elementPos - offset,
+      behavior: "smooth",
+    })
+  }
 
-.btn-watch-video:hover i {
-  color: #3b8af2;
-}
-		.list-group li{
-			margin-bottom: 16px;
-		}
-</style>
-  </head>
+  /**
+   * Header fixed top on scroll
+   */
+  // let selectHeader = select("#header")
+  // if (selectHeader) {
+  //   let headerOffset = selectHeader.offsetTop
+  //   let nextElement = selectHeader.nextElementSibling
+  //   const headerFixed = () => {
+  //     if (headerOffset - window.scrollY <= 0) {
+  //       selectHeader.classList.add("fixed-top")
+  //       nextElement.classList.add("scrolled-offset")
+  //     } else {
+  //       selectHeader.classList.remove("fixed-top")
+  //       nextElement.classList.remove("scrolled-offset")
+  //     }
+  //   }
+  //   window.addEventListener("load", headerFixed)
+  //   onscroll(document, headerFixed)
+  // }
 
-  <body>
+  /**
+   * Back to top button
+   */
+  let backtotop = select(".back-to-top")
+  if (backtotop) {
+    const toggleBacktotop = () => {
+      if (window.scrollY > 100) {
+        backtotop.classList.add("active")
+      } else {
+        backtotop.classList.remove("active")
+      }
+    }
+    window.addEventListener("load", toggleBacktotop)
+    onscroll(document, toggleBacktotop)
+  }
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
-        <h1 class="logo">Property HK<span>.</span>
-        </h1>
-      </div>
-    </header>
-    <!-- End Header -->
+  /**
+   * Mobile nav toggle
+   */
+  on("click", ".mobile-nav-toggle", function (e) {
+    select("#navbar").classList.toggle("navbar-mobile")
+    this.classList.toggle("bi-list")
+    this.classList.toggle("bi-x")
+  })
 
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
-      <div class="container" data-aos="zoom-out" data-aos-delay="100">
-        <h1>太古<br><span>THE HOLBORN</span></h1>
-        <h2 class="mt-2 mb-4">
-          由恒基兆業地產匠心打造，傲踞港島東的珍罕精品純住宅項目<br>筲箕灣道1號項目
-          「THE HOLBORN」曯目登場。
-        </h2>
-				<div class="d-flex">
-					<a href="https://api.whatsapp.com/send?phone=+852-63719152&text=你好！我是xxx先生/小姐！我想查詢「THE HOLBORN」價單！" class="btn-get-started">查詢價單</a>
-					<a href="https://api.whatsapp.com/send?phone=+852-63719152&text=你好！我是xxx先生/小姐！我想預約參觀「THE HOLBORN」！" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>預約參觀</span></a>
-				</div>
-      </div>
-    </section>
-    <!-- End Hero -->
+  /**
+   * Mobile nav dropdowns activate
+   */
+  on(
+    "click",
+    ".navbar .dropdown > a",
+    function (e) {
+      if (select("#navbar").classList.contains("navbar-mobile")) {
+        e.preventDefault()
+        this.nextElementSibling.classList.toggle("dropdown-active")
+      }
+    },
+    true
+  )
 
-    <main id="main">
-      <!-- ======= About Section ======= -->
-      <section id="about" class="about section-bg">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>About</h2>
-						<h3>太古<span> THE HOLBORN </span></h3>
-					</div>
-					<div class="section-content p-4">
-						<div class="row">
-							<div class="col-sm-12 col-md-7 mb-4">
-								<p>Holborn 位處倫敦市繁華核心，英尚名宅林立，地段顯赫矜罕，乃優才聚居之地，滿載歷史、藝術、司法與學術等豐富多元文化。項目命名為 「THE HOLBORN」，寓意傳承英倫的修養及優雅生活品味，將 Holborn 的英尚格調帶到港島東。</p>
-            <p>「THE HOLBORN」位處優裕地段，毗鄰港鐵太古站，瞬間連繫港九各區。項目坐擁港島東核心商業區優勢，匯聚港島東甲級商貿，未來發展潛力可看高一線；鄰近太古城中心及蘇豪東等休閒娛樂配套，配合充滿藝文氣息的藝術展覽及表演空間，加上鰂魚涌公園及柏架山道自然徑等海濱綠茵，尊尚生活時刻擁有。
-            </p>
-            <p>「THE HOLBORN」倚旁柏架山，向筲箕灣道單位可望享較開揚視野。前臨維多利亞港，向東北單位則享有部份海景。項目樓高29層，共提供
-              420 伙單位，間隔多元化，涵蓋開放式至 3 房，開放式單位佔 142 伙，1
-              房單位 242 伙，2 房單位 24 伙及特色單位 12 伙。
-						</p>
-						<div class="d-flex">
-							<a href="https://api.whatsapp.com/send?phone=+852-63719152&text=你好！我是xxx先生/小姐！我想查詢「THE HOLBORN」價單！" class="btn-get-started">查詢價單</a>
-							<a href="https://api.whatsapp.com/send?phone=+852-63719152&text=你好！我是xxx先生/小姐！我想預約參觀「THE HOLBORN」！" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>預約參觀</span></a>
-						</div>
-							</div>
-							<div class="col-sm-12 col-md-5 mb-4">
-								<h3 class="mb-4">更多資訊</h3>
-								<ul class="list-group" style="list-style: none;
-">
-									<li>關鍵日期：2023 年 4 月 30 日</li>
-									<li>中文地址：筲箕灣道1號</li>
-									<li>大廈座數：1座</li>
-									<li>大廈層數：29層</li>
-									<li>單位總數：420伙</li>
-									<li>小學校網：14校網</li>
-									<li>中學校網：東區</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-          </div>
+  /**
+   * Scrool with ofset on links with a class name .scrollto
+   */
+  on(
+    "click",
+    ".scrollto",
+    function (e) {
+      if (select(this.hash)) {
+        e.preventDefault()
 
-          <div class="row">
-            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-              <img src="/5.22b3860b.jpeg" class="img-fluid" alt="">
-            </div>
-            <div class="col-lg-6 pt-4 px-4 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-              <h3 class="mt-4">項目 3 大優勢</h3>
-              <ul>
-                <li>
-                  <i class="bx bx-money"></i>
-                  <div>
-                    <h5>投資潛力</h5>
-                    <p>
-                      座落在全港最優質的藍籌屋苑內，享有成熟生活配套；臨近港島東過千萬平方呎核心商業區，高質素租客、買家接踵而來，發展潛力超乎想像。
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <i class="bx bx-car"></i>
-                  <div>
-                    <h5>交通方面</h5>
-                    <p>
-                      項目位處港鐵太古城站及西灣河站之間，步行至任何一站約需7分鐘。筲箕灣道沿線另有電車站、多條巴士及小巴路線，瞬間直到港九新界多個地方。
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <i class="bx bx-shopping-bag"></i>
-                  <div>
-                    <h5>生活配套</h5>
-                    <p>
-                      項目鄰近區內大型購物商場，高達100萬平方呎太古城中心，毗鄰亦有康怡廣場及百貨公司，消閑購物娛樂一應俱全。項目步行距離直到海濱蘇豪區，可以一邊欣賞動人景致，一邊享受美酒佳餚。
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        
-      </section>
-      <!-- End About Section -->
+        let navbar = select("#navbar")
+        if (navbar.classList.contains("navbar-mobile")) {
+          navbar.classList.remove("navbar-mobile")
+          let navbarToggle = select(".mobile-nav-toggle")
+          navbarToggle.classList.toggle("bi-list")
+          navbarToggle.classList.toggle("bi-x")
+        }
+        scrollto(this.hash)
+      }
+    },
+    true
+  )
 
-      <!-- banner -->
-      <section>
-        <div class="container">
-          <img src="/4.468a9b74.jpeg" class="img-fluid" alt="">
-        </div>
-      </section>
-      <!-- end of banner -->
-    </main>
-    <!-- End #main -->
-		<div class="position-fixed" style="right: 20px; bottom: 20px
-">
-			<a href="https://api.whatsapp.com/send?phone=+852-63719152&text=你好！我是xxx先生/小姐！我想查詢「THE HOLBORN」價單！" target="_blank">
-      <img src="https://static.wixstatic.com/media/de49ff_acac59a726fe45388566efd1ef2cefe4~mv2.png/v1/fill/w_72,h_72,al_c,q_85,usm_0.66_1.00_0.01/2018_social_media_popular_app_logo-whats.webp">
-			</a>
-    </div>
-    <!-- Fixed -->
+  /**
+   * Scroll with ofset on page load with hash links in the url
+   */
+  window.addEventListener("load", () => {
+    if (window.location.hash) {
+      if (select(window.location.hash)) {
+        scrollto(window.location.hash)
+      }
+    }
+  })
 
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright Property-hk. All Rights Reserved
-        </div>
-        <br>
-        <br>
-        <small>本廣告/宣傳資料內載列的相片、圖像、繪圖或素描顯示純屬畫家對有關發展項目之想像。有關相片、圖像、繪圖或素描並非按照比例繪畫及/或可能經過電腦修飾處理。準買家如欲了解發展項目的詳情，請參閱售樓說明書。賣方亦建議準買家到有關發展地盤作實地考察，以對該發展地盤、其周邊地區環境及附近的公共設施有較佳了解。</small>
-      </div>
-    
-    <!-- End Footer -->
+  /**
+   * Preloader
+   */
+  // let preloader = select('#preloader');
+  // if (preloader) {
+  //   window.addEventListener('load', () => {
+  //     preloader.remove()
+  //   });
+  // }
 
-    <!--
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  -->
+  /**
+   * Initiate glightbox
+   */
+  const glightbox = GLightbox({
+    selector: ".glightbox",
+  })
 
-    <!-- Vendor JS Files -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/glightbox@3.0.9/dist/js/glightbox.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/js/isotope.min.js"></script>
-    <!-- <script src="./assets/vendor/php-email-form/validate.js"></script> -->
-    <!-- <script src="./assets/vendor/purecounter/purecounter.js"></script> -->
-    <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
-    <script src="/index.a1fe80bf.js"></script>
+  /**
+   * Skills animation
+   */
+  let skilsContent = select(".skills-content")
+  if (skilsContent) {
+    new Waypoint({
+      element: skilsContent,
+      offset: "80%",
+      handler: function (direction) {
+        let progress = select(".progress .progress-bar", true)
+        progress.forEach((el) => {
+          el.style.width = el.getAttribute("aria-valuenow") + "%"
+        })
+      },
+    })
+  }
 
-    <!-- Template Main JS File -->
-    <script src="/index.1cdc52c0.js"></script>
-  </body>
-</html>
+  /**
+   * Testimonials slider
+   */
+  // new Swiper(".testimonials-slider", {
+  //   speed: 600,
+  //   loop: true,
+  //   autoplay: {
+  //     delay: 5000,
+  //     disableOnInteraction: false,
+  //   },
+  //   slidesPerView: "auto",
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //     type: "bullets",
+  //     clickable: true,
+  //   },
+  // })
+
+  /**
+   * Porfolio isotope and filter
+   */
+  window.addEventListener("load", () => {
+    let portfolioContainer = select(".portfolio-container")
+    if (portfolioContainer) {
+      let portfolioIsotope = new Isotope(portfolioContainer, {
+        itemSelector: ".portfolio-item",
+      })
+
+      let portfolioFilters = select("#portfolio-flters li", true)
+
+      on(
+        "click",
+        "#portfolio-flters li",
+        function (e) {
+          e.preventDefault()
+          portfolioFilters.forEach(function (el) {
+            el.classList.remove("filter-active")
+          })
+          this.classList.add("filter-active")
+
+          portfolioIsotope.arrange({
+            filter: this.getAttribute("data-filter"),
+          })
+          portfolioIsotope.on("arrangeComplete", function () {
+            AOS.refresh()
+          })
+        },
+        true
+      )
+    }
+  })
+
+  /**
+   * Initiate portfolio lightbox
+   */
+  const portfolioLightbox = GLightbox({
+    selector: ".portfolio-lightbox",
+  })
+
+  /**
+   * Portfolio details slider
+   */
+  // new Swiper(".portfolio-details-slider", {
+  //   speed: 400,
+  //   loop: true,
+  //   autoplay: {
+  //     delay: 5000,
+  //     disableOnInteraction: false,
+  //   },
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //     type: "bullets",
+  //     clickable: true,
+  //   },
+  // })
+
+  /**
+   * Animation on scroll
+   */
+  window.addEventListener("load", () => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+      mirror: false,
+    })
+  })
+})()
+
+},{}]},["gTUK7","688qR"], "688qR", "parcelRequiref14c")
+
+//# sourceMappingURL=index.1cdc52c0.js.map
