@@ -154,17 +154,39 @@ function getBasePlacement(placement) {
   return placement.split('-')[0];
 }
 
-function getBoundingClientRect(element) {
+var round = Math.round;
+function getBoundingClientRect(element, includeScale) {
+  if (includeScale === void 0) {
+    includeScale = false;
+  }
+
   var rect = element.getBoundingClientRect();
+  var scaleX = 1;
+  var scaleY = 1;
+
+  if (isHTMLElement(element) && includeScale) {
+    var offsetHeight = element.offsetHeight;
+    var offsetWidth = element.offsetWidth; // Do not attempt to divide by 0, otherwise we get `Infinity` as scale
+    // Fallback to 1 in case both values are `0`
+
+    if (offsetWidth > 0) {
+      scaleX = rect.width / offsetWidth || 1;
+    }
+
+    if (offsetHeight > 0) {
+      scaleY = rect.height / offsetHeight || 1;
+    }
+  }
+
   return {
-    width: rect.width,
-    height: rect.height,
-    top: rect.top,
-    right: rect.right,
-    bottom: rect.bottom,
-    left: rect.left,
-    x: rect.left,
-    y: rect.top
+    width: round(rect.width / scaleX),
+    height: round(rect.height / scaleY),
+    top: round(rect.top / scaleY),
+    right: round(rect.right / scaleX),
+    bottom: round(rect.bottom / scaleY),
+    left: round(rect.left / scaleX),
+    x: round(rect.left / scaleX),
+    y: round(rect.top / scaleY)
   };
 }
 
@@ -311,7 +333,7 @@ function getMainAxisFromPlacement(placement) {
 
 var max = Math.max;
 var min = Math.min;
-var round = Math.round;
+var round$1 = Math.round;
 
 function within(min$1, value, max$1) {
   return max(min$1, min(value, max$1));
@@ -419,6 +441,10 @@ var arrow$1 = {
   requiresIfExists: ['preventOverflow']
 };
 
+function getVariation(placement) {
+  return placement.split('-')[1];
+}
+
 var unsetSides = {
   top: 'auto',
   right: 'auto',
@@ -434,8 +460,8 @@ function roundOffsetsByDPR(_ref) {
   var win = window;
   var dpr = win.devicePixelRatio || 1;
   return {
-    x: round(round(x * dpr) / dpr) || 0,
-    y: round(round(y * dpr) / dpr) || 0
+    x: round$1(round$1(x * dpr) / dpr) || 0,
+    y: round$1(round$1(y * dpr) / dpr) || 0
   };
 }
 
@@ -445,6 +471,7 @@ function mapToStyles(_ref2) {
   var popper = _ref2.popper,
       popperRect = _ref2.popperRect,
       placement = _ref2.placement,
+      variation = _ref2.variation,
       offsets = _ref2.offsets,
       position = _ref2.position,
       gpuAcceleration = _ref2.gpuAcceleration,
@@ -471,7 +498,7 @@ function mapToStyles(_ref2) {
     if (offsetParent === getWindow(popper)) {
       offsetParent = getDocumentElement(popper);
 
-      if (getComputedStyle(offsetParent).position !== 'static') {
+      if (getComputedStyle(offsetParent).position !== 'static' && position === 'absolute') {
         heightProp = 'scrollHeight';
         widthProp = 'scrollWidth';
       }
@@ -480,14 +507,14 @@ function mapToStyles(_ref2) {
 
     offsetParent = offsetParent;
 
-    if (placement === top) {
+    if (placement === top || (placement === left || placement === right) && variation === end) {
       sideY = bottom; // $FlowFixMe[prop-missing]
 
       y -= offsetParent[heightProp] - popperRect.height;
       y *= gpuAcceleration ? 1 : -1;
     }
 
-    if (placement === left) {
+    if (placement === left || (placement === top || placement === bottom) && variation === end) {
       sideX = right; // $FlowFixMe[prop-missing]
 
       x -= offsetParent[widthProp] - popperRect.width;
@@ -502,7 +529,7 @@ function mapToStyles(_ref2) {
   if (gpuAcceleration) {
     var _Object$assign;
 
-    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
   }
 
   return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
@@ -520,6 +547,7 @@ function computeStyles(_ref4) {
 
   var commonStyles = {
     placement: getBasePlacement(state.placement),
+    variation: getVariation(state.placement),
     popper: state.elements.popper,
     popperRect: state.rects.popper,
     gpuAcceleration: gpuAcceleration
@@ -822,10 +850,6 @@ function getClippingRect(element, boundary, rootBoundary) {
   return clippingRect;
 }
 
-function getVariation(placement) {
-  return placement.split('-')[1];
-}
-
 function computeOffsets(_ref) {
   var reference = _ref.reference,
       element = _ref.element,
@@ -911,11 +935,10 @@ function detectOverflow(state, options) {
       padding = _options$padding === void 0 ? 0 : _options$padding;
   var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
   var altContext = elementContext === popper ? reference : popper;
-  var referenceElement = state.elements.reference;
   var popperRect = state.rects.popper;
   var element = state.elements[altBoundary ? altContext : elementContext];
   var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
-  var referenceClientRect = getBoundingClientRect(referenceElement);
+  var referenceClientRect = getBoundingClientRect(state.elements.reference);
   var popperOffsets = computeOffsets({
     reference: referenceClientRect,
     element: popperRect,
@@ -1392,16 +1415,24 @@ function getNodeScroll(node) {
   }
 }
 
+function isElementScaled(element) {
+  var rect = element.getBoundingClientRect();
+  var scaleX = rect.width / element.offsetWidth || 1;
+  var scaleY = rect.height / element.offsetHeight || 1;
+  return scaleX !== 1 || scaleY !== 1;
+} // Returns the composite rect of an element relative to its offsetParent.
 // Composite means it takes into account transforms as well as layout.
+
 
 function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
   if (isFixed === void 0) {
     isFixed = false;
   }
 
-  var documentElement = getDocumentElement(offsetParent);
-  var rect = getBoundingClientRect(elementOrVirtualElement);
   var isOffsetParentAnElement = isHTMLElement(offsetParent);
+  var offsetParentIsScaled = isHTMLElement(offsetParent) && isElementScaled(offsetParent);
+  var documentElement = getDocumentElement(offsetParent);
+  var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled);
   var scroll = {
     scrollLeft: 0,
     scrollTop: 0
@@ -1418,7 +1449,7 @@ function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
     }
 
     if (isHTMLElement(offsetParent)) {
-      offsets = getBoundingClientRect(offsetParent);
+      offsets = getBoundingClientRect(offsetParent, true);
       offsets.x += offsetParent.clientLeft;
       offsets.y += offsetParent.clientTop;
     } else if (documentElement) {
@@ -1555,7 +1586,8 @@ function popperGenerator(generatorOptions) {
     var isDestroyed = false;
     var instance = {
       state: state,
-      setOptions: function setOptions(options) {
+      setOptions: function setOptions(setOptionsAction) {
+        var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
         cleanupModifierEffects();
         state.options = Object.assign({}, defaultOptions, state.options, options);
         state.scrollParents = {
